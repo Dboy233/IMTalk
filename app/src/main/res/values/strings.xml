@@ -4,4 +4,8 @@
     <string name="password">密码</string>
     <string name="login">登录</string>
     <string name="new_user">新用户</string>
+    <string name="user_name_error">用户名格式出错，必须是字母和数字</string>
+    <string name="password_error">密码出错</string>
+    <string name="logging">正在登陆。。。</string>
+    <string name="loggin_failed">登录失败</string>
 </resources>
