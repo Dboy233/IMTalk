@@ -1,6 +1,7 @@
 package com.djc.imtalk
 
 import com.djc.imtalk.contract.RegisterContract
+import com.djc.imtalk.presenter.RegisterPresenter
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -11,12 +12,30 @@ import org.jetbrains.anko.toast
  * 邮箱    ：894230813@qq.com
  */
 class RegisterActivity : BaseActivity(), RegisterContract.View {
+    val persenter = RegisterPresenter(this)
     override fun init() {
         //已有账户去登陆
         tv_hisUser.setOnClickListener {
             startActivity<LoginActivity>()
             finish()
         }
+
+        bt_register.setOnClickListener { register() }
+        ed_confirm_password.setOnEditorActionListener { v, actionId, event ->
+            register()
+            true
+        }
+    }
+
+    private fun register() {
+        //隐藏软键盘
+        hideSoftKeyboard()
+
+        val userNameString = ed_userName.text.trim().toString()
+        val passwordString = ed_password.text.trim().toString()
+        val confirmPasswordString = ed_confirm_password.text.trim().toString()
+        persenter.register(userNameString, passwordString, confirmPasswordString)
+
     }
 
     override fun onUserNameError() {
