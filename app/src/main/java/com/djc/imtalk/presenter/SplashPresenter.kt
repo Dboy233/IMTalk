@@ -1,6 +1,7 @@
 package com.djc.imtalk.presenter
 
 import com.djc.imtalk.contract.SplashContract
+import com.hyphenate.chat.EMClient
 
 /**
  *@author ： created by dujiangchuan
@@ -13,7 +14,8 @@ class SplashPresenter(val view: SplashContract.View) : SplashContract.Presenter 
         else view.onNotLoggedIn()
     }
 
-    private fun isLoggedIn(): Boolean {
-        return false
-    }
+    //是否登录到环信服务器
+    private fun isLoggedIn(): Boolean =
+        EMClient.getInstance().isConnected && EMClient.getInstance().isLoggedInBefore
+
 }
