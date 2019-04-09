@@ -10,4 +10,7 @@
     <string name="loggin_failed">登录失败</string>
     <string name="register">注册</string>
     <string name="confirm_password">确认密码</string>
+    <string name="confirm_password_error">密码不一致</string>
+    <string name="register_error">注册失败</string>
+    <string name="registing">正在注册。。。</string>
 </resources>
