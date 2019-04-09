@@ -56,6 +56,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
 
     //注册成功 跳转到登录界面
     override fun onRegisterSuccess() {
+        toast("注册成功")
         dissProgress()
         startActivity<LoginActivity>()
         finish()

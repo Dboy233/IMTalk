@@ -6,6 +6,10 @@ import cn.bmob.v3.listener.SaveListener
 import com.djc.imtalk.contract.RegisterContract
 import com.djc.imtalk.extentions.isValidPassword
 import com.djc.imtalk.extentions.isValidUserName
+import com.hyphenate.chat.EMClient
+import com.hyphenate.exceptions.HyphenateException
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 
 /**
@@ -43,12 +47,29 @@ class RegisterPresenter(val view: RegisterContract.View) : RegisterContract.Pres
                 if (e == null) {
                     //注册成功
                     //注册到环信
+                    registerEaseMob(userName, password)
                 } else {
                     //注册失败
                     view.onRegisterFailed()
                 }
             }
         })
+
+    }
+
+    private fun registerEaseMob(userName: String, password: String) {
+        doAsync {
+            try {
+                //注册失败会抛出HyphenateException
+                EMClient.getInstance().createAccount(userName, password);//同步方法
+                //注册成功
+                uiThread { view.onRegisterSuccess() }
+            } catch (e: HyphenateException) {
+                //注册失败
+                uiThread { view.onRegisterFailed() }
+            }
+
+        }
 
     }
 }
