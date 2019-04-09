@@ -1,6 +1,7 @@
 package com.djc.imtalk
 
 import com.djc.imtalk.contract.LoginContract
+import com.djc.imtalk.presenter.LoginPresenter
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -12,7 +13,29 @@ import org.jetbrains.anko.toast
  */
 class LoginActivity : BaseActivity(), LoginContract.View {
 
+    val presenter = LoginPresenter(this)
+
     override fun getLayoutResId(): Int = R.layout.activity_login
+
+
+    override fun init() {
+        super.init()
+        bt_login.setOnClickListener {
+            login()
+        }
+        ed_password.setOnEditorActionListener { v, actionId, event ->
+            login()
+            true
+        }
+    }
+
+    //登录按钮 登录
+    private fun login() {
+        val userNameString = ed_userName.text.trim().toString()
+        val passwordString = ed_password.text.trim().toString()
+        presenter.login(userNameString, passwordString)
+
+    }
 
     override fun onUserNameError() {
         ed_userName.error = getString(R.string.user_name_error)
