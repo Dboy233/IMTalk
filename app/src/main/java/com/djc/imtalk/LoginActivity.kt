@@ -1,5 +1,8 @@
 package com.djc.imtalk
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.support.v4.app.ActivityCompat
 import com.djc.imtalk.contract.LoginContract
 import com.djc.imtalk.presenter.LoginPresenter
 import kotlinx.android.synthetic.main.activity_login.*
@@ -20,6 +23,10 @@ class LoginActivity : BaseActivity(), LoginContract.View {
 
     override fun init() {
         super.init()
+        tv_newUser.setOnClickListener {
+            startActivity<RegisterActivity>()
+            finish()
+        }
         bt_login.setOnClickListener {
             login()
         }
@@ -33,11 +40,36 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     private fun login() {
         //隐藏键盘
         hideSoftKeyboard()
+        if (hasWriteExternalStoragePermission()) {
+            val userNameString = ed_userName.text.trim().toString()
+            val passwordString = ed_password.text.trim().toString()
+            presenter.login(userNameString, passwordString)
+        } else {
+            applyWriteExteranlStoragePermission()
+        }
 
-        val userNameString = ed_userName.text.trim().toString()
-        val passwordString = ed_password.text.trim().toString()
-        presenter.login(userNameString, passwordString)
 
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            //同意权限,开始登录
+            login()
+        }else toast("权限被拒绝了")
+    }
+
+    //申请权限
+    private fun applyWriteExteranlStoragePermission() {
+        var permission = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        ActivityCompat.requestPermissions(this, permission, 0)
+
+    }
+
+    //检查权限
+    private fun hasWriteExternalStoragePermission(): Boolean {
+
+        val checkSelfPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        return checkSelfPermission == PackageManager.PERMISSION_GRANTED
     }
 
     override fun onUserNameError() {
