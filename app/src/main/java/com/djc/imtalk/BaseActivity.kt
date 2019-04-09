@@ -16,7 +16,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     //初始化公共功能
-    fun init() {
+    open fun init() {
 
     }
 

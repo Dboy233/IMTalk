@@ -2,6 +2,7 @@ package com.djc.imtalk
 
 import android.os.Handler
 import com.djc.imtalk.contract.SplashContract
+import com.djc.imtalk.presenter.SplashPresenter
 import org.jetbrains.anko.startActivity
 
 /**
@@ -10,12 +11,19 @@ import org.jetbrains.anko.startActivity
  * 邮箱    ：894230813@qq.com
  */
 class SplashActivity : BaseActivity(), SplashContract.View {
+    val presenter = SplashPresenter(this)
+
     companion object {
         val DELAY = 2000L
     }
 
     val handler by lazy {
         Handler()
+    }
+
+    override fun init() {
+        super.init()
+        presenter.checkLoginStatus()
     }
 
     override fun getLayoutResId(): Int = R.layout.activity_splash
@@ -28,6 +36,7 @@ class SplashActivity : BaseActivity(), SplashContract.View {
 
 
     }
+
     //跳转到主界面
     override fun onLoggedIn() {
         startActivity<MainActivity>()
