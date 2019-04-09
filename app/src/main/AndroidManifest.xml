@@ -27,7 +27,9 @@
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:name=".app.IMApplication"
-            android:theme="@style/AppTheme.FullScreen">
+            android:theme="@style/AppTheme.FullScreen"
+            android:usesCleartextTraffic="true"
+            >
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -40,10 +42,10 @@
 
         <meta-data
                 android:name="design_width_in_dp"
-                android:value="1080"/>
+                android:value="480"/>
         <meta-data
                 android:name="design_height_in_dp"
-                android:value="1920"/>
+                android:value="800"/>
 
 
         <!-- 设置环信应用的AppKey -->
@@ -72,6 +74,8 @@
             </intent-filter>
         </receiver>
 
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
     </application>
 
 

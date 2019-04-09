@@ -40,6 +40,7 @@ class SplashActivity : BaseActivity(), SplashContract.View {
     //跳转到主界面
     override fun onLoggedIn() {
         startActivity<MainActivity>()
+        finish()
     }
 
 }

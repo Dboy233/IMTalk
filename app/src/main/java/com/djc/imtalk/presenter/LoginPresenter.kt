@@ -1,8 +1,11 @@
 package com.djc.imtalk.presenter
 
+import android.util.Log
+import com.djc.imtalk.adapter.EMCallBackAdapter
 import com.djc.imtalk.contract.LoginContract
 import com.djc.imtalk.extentions.isValidPassword
 import com.djc.imtalk.extentions.isValidUserName
+import com.hyphenate.chat.EMClient
 
 /**
  *@author ： created by dujiangchuan
@@ -18,16 +21,29 @@ class LoginPresenter(val view: LoginContract.View) : LoginContract.Presenter {
                 //密码合法
                 //开始登录
                 view.onStartLogin()
-                logEaseMob(userName,password)//登录到环信服务器
+                logEaseMob(userName, password)//登录到环信服务器
 
             } else view.onPasswordError()
-        } else view.onPasswordError()
+        } else view.onUserNameError()
 
     }
 
     private fun logEaseMob(userName: String, password: String) {
 
+        EMClient.getInstance().login(userName, password, object : EMCallBackAdapter() {
+            //在子线程中
+            override fun onSuccess() {
+                EMClient.getInstance().groupManager().loadAllGroups()
+                EMClient.getInstance().chatManager().loadAllConversations()
+                Log.d("main", "登录聊天服务器成功！")
+                //在主线程中通知View层
+                uiThread { view.onLoggedSuccess() }
+            }
 
+            override fun onError(p0: Int, p1: String?) {
+                uiThread { view.onLoggedFailed() }
+            }
+        })
     }
 
 }

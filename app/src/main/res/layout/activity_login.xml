@@ -27,7 +27,7 @@
             android:layout_margin="20dp"
             android:layout_width="match_parent"
             android:hint="@string/password"
-            android:inputType="numberPassword"
+            android:inputType="textPassword"
             android:imeOptions="actionGo"
             android:layout_height="wrap_content"/>
 
