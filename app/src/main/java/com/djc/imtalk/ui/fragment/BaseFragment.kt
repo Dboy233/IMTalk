@@ -1,4 +1,4 @@
-package com.djc.imtalk
+package com.djc.imtalk.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
