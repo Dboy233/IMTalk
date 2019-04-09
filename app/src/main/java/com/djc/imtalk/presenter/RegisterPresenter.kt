@@ -19,7 +19,7 @@ class RegisterPresenter(val view: RegisterContract.View) : RegisterContract.Pres
                 if (password == confirmPassword) {
                     //开始注册
                     view.onStartRegister()
-                    //
+                    //注册Module
 
 
                 } else view.onConFirmPasswordError()
