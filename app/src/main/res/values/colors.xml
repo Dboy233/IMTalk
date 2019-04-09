@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="bg_splash">#ffffff</color>
-
+    <color name="white">#ffffff</color>
+    <color name="blue">#0000ff</color>
+    <color name="blue_light">#6D6DF8</color>
 </resources>
