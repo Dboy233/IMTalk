@@ -1,8 +1,10 @@
 package com.djc.imtalk
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.inputmethod.InputMethodManager
 
 /**
  *@author ： created by dujiangchuan
@@ -14,6 +16,10 @@ abstract class BaseActivity : AppCompatActivity() {
     val progressDialog by lazy {
         ProgressDialog(this)
 
+    }
+
+    val inputMismatchManager by lazy {
+        getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,5 +53,10 @@ abstract class BaseActivity : AppCompatActivity() {
             progressDialog.dismiss()
     }
 
-
+    /**
+     * 隐藏软键盘
+     */
+    fun hideSoftKeyboard() {
+        inputMismatchManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+    }
 }
