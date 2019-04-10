@@ -5,9 +5,9 @@ import android.view.View
 import com.djc.imtalk.R
 import com.djc.imtalk.adapter.ContactListAdapter
 import com.djc.imtalk.contract.ContactContract
+import com.djc.imtalk.presenter.ContactPresenter
 import kotlinx.android.synthetic.main.fragment_contact.*
 import kotlinx.android.synthetic.main.header.*
-import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 
 /**
@@ -16,8 +16,8 @@ import org.jetbrains.anko.toast
  * 邮箱    ：894230813@qq.com
  */
 class ContactFragment : BaseFragment(), ContactContract.View {
+    val presenter = ContactPresenter(this)
     override fun getLayoutResId(): Int = R.layout.fragment_contact
-
     override fun init() {
         super.init()
         header_title.text = getString(R.string.tab_contact_string)
@@ -26,6 +26,7 @@ class ContactFragment : BaseFragment(), ContactContract.View {
         swipeRefreshLayout.apply {
             setColorSchemeResources(R.color.blue_light)
             isRefreshing = true
+            setOnRefreshListener { presenter.loadContacts() }
         }
         recyclerView_contact.apply {
 
@@ -33,11 +34,12 @@ class ContactFragment : BaseFragment(), ContactContract.View {
             layoutManager = LinearLayoutManager(context)
             adapter = ContactListAdapter(context)
         }
+        presenter.loadContacts()
     }
 
     override fun onLoadContactSuccess() {
         swipeRefreshLayout.isRefreshing = false
-        recyclerView_contact.adapter.notifyDataSetChanged()
+        recyclerView_contact.adapter!!.notifyDataSetChanged()
 
     }
 
