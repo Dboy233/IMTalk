@@ -17,7 +17,7 @@ import org.jetbrains.anko.toast
  */
 class LoginActivity : BaseActivity(), LoginContract.View {
 
-    val presenter = LoginPresenter(this)
+    private val presenter = LoginPresenter(this)
 
     override fun getLayoutResId(): Int = R.layout.activity_login
 
@@ -31,7 +31,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         bt_login.setOnClickListener {
             login()
         }
-        ed_password.setOnEditorActionListener { v, actionId, event ->
+        ed_password.setOnEditorActionListener { _, _, _ ->
             login()
             true
         }
@@ -46,7 +46,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
             val passwordString = ed_password.text.trim().toString()
             presenter.login(userNameString, passwordString)
         } else {
-            applyWriteExteranlStoragePermission()
+            applyWriteExternalStoragePermission()
         }
 
 
@@ -56,12 +56,12 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             //同意权限,开始登录
             login()
-        }else toast("权限被拒绝了")
+        } else toast("权限被拒绝了")
     }
 
     //申请权限
-    private fun applyWriteExteranlStoragePermission() {
-        var permission = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    private fun applyWriteExternalStoragePermission() {
+        val permission = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         ActivityCompat.requestPermissions(this, permission, 0)
 
     }

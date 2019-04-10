@@ -6,20 +6,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.activity.MainActivity">
+        tools:context=".ui.activity.MainActivity"
+        >
 
     <FrameLayout
             android:id="@+id/fragment_frame"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            android:layout_height="0dp"
+            />
 
-    <com.roughike.bottombar.BottomBar
-            android:id="@+id/bottomBar"
+    <android.support.design.widget.BottomNavigationView
             android:layout_width="match_parent"
-            app:bb_activeTabColor="@color/blue_light"
-            app:bb_tabXmlResource="@xml/bottombar_tabs"
-            android:layout_height="60dp"/>
+            android:layout_height="50dp"
+            app:menu="@menu/bottom_bar"
+            />
 
 
 </LinearLayout>

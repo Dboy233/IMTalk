@@ -13,7 +13,7 @@ import org.jetbrains.anko.toast
  * 邮箱    ：894230813@qq.com
  */
 class RegisterActivity : BaseActivity(), RegisterContract.View {
-    val persenter = RegisterPresenter(this)
+    private val presenter = RegisterPresenter(this)
     override fun init() {
         //已有账户去登陆
         tv_hisUser.setOnClickListener {
@@ -22,7 +22,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
         }
 
         bt_register.setOnClickListener { register() }
-        ed_confirm_password.setOnEditorActionListener { v, actionId, event ->
+        ed_confirm_password.setOnEditorActionListener { _, _, _ ->
             register()
             true
         }
@@ -35,7 +35,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
         val userNameString = ed_userName.text.trim().toString()
         val passwordString = ed_password.text.trim().toString()
         val confirmPasswordString = ed_confirm_password.text.trim().toString()
-        persenter.register(userNameString, passwordString, confirmPasswordString)
+        presenter.register(userNameString, passwordString, confirmPasswordString)
 
     }
 

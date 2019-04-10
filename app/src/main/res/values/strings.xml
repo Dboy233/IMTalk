@@ -14,4 +14,7 @@
     <string name="register_error">注册失败</string>
     <string name="registing">正在注册。。。</string>
     <string name="user_exist">用户已经存在</string>
+    <string name="tab_conversation_string">消息</string>
+    <string name="tab_contact_string">联系人</string>
+    <string name="tab_more_string">更多</string>
 </resources>

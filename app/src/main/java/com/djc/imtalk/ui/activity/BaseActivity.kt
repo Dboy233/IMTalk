@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.djc.imtalk.ui.activity
 
 import android.app.ProgressDialog
@@ -13,12 +15,12 @@ import android.view.inputmethod.InputMethodManager
  */
 abstract class BaseActivity : AppCompatActivity() {
 
-    val progressDialog by lazy {
+    private val progressDialog by lazy {
         ProgressDialog(this)
 
     }
 
-    val inputMismatchManager by lazy {
+    private val inputMismatchManager by lazy {
         getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
