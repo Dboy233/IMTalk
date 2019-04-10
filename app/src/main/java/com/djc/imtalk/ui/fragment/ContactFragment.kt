@@ -32,7 +32,7 @@ class ContactFragment : BaseFragment(), ContactContract.View {
 
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = ContactListAdapter(context)
+            adapter = ContactListAdapter(context, presenter.contactListItems)
         }
         presenter.loadContacts()
     }
