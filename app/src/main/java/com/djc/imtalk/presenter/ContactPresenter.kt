@@ -14,15 +14,22 @@ import org.jetbrains.anko.doAsync
 class ContactPresenter(val view: ContactContract.View) : ContactContract.Presenter {
     var contactListItems = mutableListOf<ContactListItem>()
     override fun loadContacts() {
+        contactListItems.clear()
         doAsync {
             try {
                 val usersList = EMClient.getInstance().contactManager().allContactsFromServer
                 //首字符排序
                 usersList.sortBy { it[0] }
-                usersList.forEach {
-                    val contactListItem = ContactListItem(it, it[0].toUpperCase())
+                usersList.forEachIndexed { index, s ->
+                    //判断是否显示首字符  由于上一行代码已经排序好了  index ==0 第一项显示字符
+                    //s[0] != usersList[index - 1][0] 随后的字符串如果与上一个字符串的首字母 不一样 就显示
+                    var showFirstLetter = index == 0 || s[0] != usersList[index - 1][0]
+                    //添加数据
+                    val contactListItem = ContactListItem(s, s[0].toUpperCase(), showFirstLetter)
                     contactListItems.add(contactListItem)
+
                 }
+                //通知view层更新界面
                 uiThread {
                     view.onLoadContactSuccess()
                 }
