@@ -1,7 +1,9 @@
 package com.djc.imtalk.ui.fragment
 
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.djc.imtalk.R
+import com.djc.imtalk.adapter.ContactListAdapter
 import kotlinx.android.synthetic.main.fragment_contact.*
 import kotlinx.android.synthetic.main.header.*
 
@@ -20,6 +22,12 @@ class ContactFragment : BaseFragment() {
         swipeRefreshLayout.apply {
             setColorSchemeResources(R.color.blue_light)
             isRefreshing = true
+        }
+        recyclerView_contact.apply {
+
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = ContactListAdapter(context)
         }
     }
 }

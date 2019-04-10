@@ -17,4 +17,5 @@ class ContactListItemView(context: Context?, attrs: AttributeSet? = null) : Rela
         View.inflate(context, R.layout.view_contact_item, this)
     }
 
+
 }
