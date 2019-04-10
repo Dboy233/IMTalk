@@ -20,4 +20,5 @@
     <string name="logout">退出登录（%s）</string>
     <string name="logout_failed">推出失败!</string>
     <string name="logout_success">已退出</string>
+    <string name="load_fialed">加载失败</string>
 </resources>

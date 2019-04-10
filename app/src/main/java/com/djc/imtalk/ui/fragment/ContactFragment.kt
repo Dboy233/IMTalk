@@ -4,16 +4,20 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.djc.imtalk.R
 import com.djc.imtalk.adapter.ContactListAdapter
+import com.djc.imtalk.contract.ContactContract
 import kotlinx.android.synthetic.main.fragment_contact.*
 import kotlinx.android.synthetic.main.header.*
+import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 
 /**
  *@author ： created by dujiangchuan
  * 时间    ：2019/4/9 19
  * 邮箱    ：894230813@qq.com
  */
-class ContactFragment : BaseFragment() {
+class ContactFragment : BaseFragment(), ContactContract.View {
     override fun getLayoutResId(): Int = R.layout.fragment_contact
+
     override fun init() {
         super.init()
         header_title.text = getString(R.string.tab_contact_string)
@@ -29,5 +33,16 @@ class ContactFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = ContactListAdapter(context)
         }
+    }
+
+    override fun onLoadContactSuccess() {
+        swipeRefreshLayout.isRefreshing = false
+        recyclerView_contact.adapter.notifyDataSetChanged()
+
+    }
+
+    override fun onLoadContactFailed() {
+        swipeRefreshLayout.isRefreshing = false
+        context!!.toast(getString(R.string.load_fialed))
     }
 }
