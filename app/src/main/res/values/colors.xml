@@ -7,4 +7,6 @@
     <color name="white">#ffffff</color>
     <color name="blue">#0000ff</color>
     <color name="blue_light">#6D6DF8</color>
+    <color name="read_light">#FF5656</color>
+    <color name="read">#FF0000</color>
 </resources>
