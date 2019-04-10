@@ -4,8 +4,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.djc.imtalk.R
 import com.djc.imtalk.adapter.ContactListAdapter
+import com.djc.imtalk.adapter.EMContactListenerAdapter
 import com.djc.imtalk.contract.ContactContract
 import com.djc.imtalk.presenter.ContactPresenter
+import com.hyphenate.chat.EMClient
 import kotlinx.android.synthetic.main.fragment_contact.*
 import kotlinx.android.synthetic.main.header.*
 import org.jetbrains.anko.toast
@@ -28,12 +30,22 @@ class ContactFragment : BaseFragment(), ContactContract.View {
             isRefreshing = true
             setOnRefreshListener { presenter.loadContacts() }
         }
+        //初始化列表
         recyclerView_contact.apply {
 
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
+            //绑定监听器
             adapter = ContactListAdapter(context, presenter.contactListItems)
         }
+        //好友信息监听器
+        EMClient.getInstance().contactManager().setContactListener(object : EMContactListenerAdapter() {
+            //好友删除
+            override fun onContactDeleted(p0: String?) {
+                //重新获取联系人列表
+                presenter.loadContacts()
+            }
+        })
         presenter.loadContacts()
     }
 
@@ -47,4 +59,5 @@ class ContactFragment : BaseFragment(), ContactContract.View {
         swipeRefreshLayout.isRefreshing = false
         context!!.toast(getString(R.string.load_fialed))
     }
+
 }

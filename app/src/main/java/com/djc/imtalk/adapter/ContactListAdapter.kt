@@ -57,6 +57,7 @@ class ContactListAdapter(
     }
 
     private fun deleteFriend(userName: String) {
+        //异步方法
         EMClient.getInstance().contactManager().aysncDeleteContact(userName, object : EMCallBackAdapter() {
             override fun onSuccess() {
                 context.runOnUiThread { toast("删除成功！") }

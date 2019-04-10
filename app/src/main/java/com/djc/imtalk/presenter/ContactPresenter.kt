@@ -14,8 +14,9 @@ import org.jetbrains.anko.doAsync
 class ContactPresenter(val view: ContactContract.View) : ContactContract.Presenter {
     var contactListItems = mutableListOf<ContactListItem>()
     override fun loadContacts() {
-        contactListItems.clear()
         doAsync {
+            //初始化集合
+            contactListItems.clear()
             try {
                 val usersList = EMClient.getInstance().contactManager().allContactsFromServer
                 //首字符排序
