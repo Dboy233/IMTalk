@@ -17,9 +17,11 @@
             />
 
     <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:menu="@menu/bottom_bar"
+            android:background="?android:attr/windowBackground"
             />
 
 

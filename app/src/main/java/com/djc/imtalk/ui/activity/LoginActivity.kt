@@ -89,7 +89,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
 
     override fun onLoggedSuccess() {
         //隐藏进度条
-        dissProgress()
+        dissMissProgress()
         //跳转主界面
         startActivity<MainActivity>()
         //推出登录界面
@@ -98,7 +98,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
 
     override fun onLoggedFailed() {
         //隐藏进度条
-        dissProgress()
+        dissMissProgress()
         //弹出toast
         toast(R.string.loggin_failed)
 

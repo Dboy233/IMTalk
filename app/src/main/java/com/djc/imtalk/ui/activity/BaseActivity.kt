@@ -6,6 +6,7 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 
 /**
@@ -50,15 +51,17 @@ abstract class BaseActivity : AppCompatActivity() {
     /**
      * 关闭
      */
-    fun dissProgress() {
+    fun dissMissProgress() {
         if (progressDialog.isShowing)
             progressDialog.dismiss()
     }
+
+
 
     /**
      * 隐藏软键盘
      */
     fun hideSoftKeyboard() {
-        inputMismatchManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+        inputMismatchManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
     }
 }

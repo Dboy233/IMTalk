@@ -2,6 +2,7 @@ package com.djc.imtalk.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,9 +21,14 @@ abstract class BaseFragment : Fragment() {
         init()
 
 
-    fun init() {}
+    open fun init() {}
 
 
     abstract fun getLayoutResId(): Int
+
+
+    fun log(msg: String) {
+        Log.d("DJC", msg)
+    }
 
 }

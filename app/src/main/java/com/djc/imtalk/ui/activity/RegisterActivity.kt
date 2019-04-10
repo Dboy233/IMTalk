@@ -58,19 +58,19 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
     //注册成功 跳转到登录界面
     override fun onRegisterSuccess() {
         toast("注册成功")
-        dissProgress()
+        dissMissProgress()
         startActivity<LoginActivity>()
         finish()
     }
 
     //    注册失败
     override fun onRegisterFailed() {
-        dissProgress()
+        dissMissProgress()
         toast(getString(R.string.register_error))
     }
 
     override fun onUserExist() {
-        dissProgress()
+        dissMissProgress()
         toast(getString(R.string.user_exist))
     }
 

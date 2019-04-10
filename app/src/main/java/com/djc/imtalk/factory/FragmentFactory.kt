@@ -13,14 +13,17 @@ import com.djc.imtalk.ui.fragment.MoreFragment
  * 邮箱    ：894230813@qq.com
  */
 class FragmentFactory private constructor() {
+    //
     private val conversation by lazy {
 
         ConversationFragment()
     }
+    //联系人
     private val contact by lazy {
-        Log.d("TAG","more")
+        Log.d("TAG", "more")
         ContactFragment()
     }
+    //更多
     private val more by lazy {
 
         MoreFragment()
@@ -30,13 +33,15 @@ class FragmentFactory private constructor() {
         val instance = FragmentFactory()
     }
 
-//    fun getFragment(tabId: Int): Fragment =
-//        when (tabId) {
-//            R.id.tab_conversation -> conversation
-//            R.id.tab_contact -> contact
-//            R.id.tab_more -> more
-//            else -> contact
-//        }
+    fun getFragment(tabId: Int): Fragment {
+
+        return when (tabId) {
+            R.id.tab_conversation -> conversation
+            R.id.tab_contact -> contact
+            R.id.tab_more -> more
+            else -> contact
+        }
+    }
 
 
 }
