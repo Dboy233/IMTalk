@@ -15,6 +15,7 @@
             android:layout_margin="30dp"
             android:src="@drawable/people_head"
             android:layout_gravity="center_horizontal"
+
             />
 
     <Button
@@ -27,7 +28,6 @@
             android:text="@string/logout"
             android:textColor="@color/white"
             android:textSize="22sp"
-            android:textStyle="bold"
             />
 
 </LinearLayout>
