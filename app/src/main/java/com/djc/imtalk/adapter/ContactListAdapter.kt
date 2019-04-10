@@ -9,7 +9,10 @@ import com.djc.imtalk.R
 import com.djc.imtalk.data.ContactListItem
 import com.djc.imtalk.ui.activity.ChatActivity
 import com.djc.imtalk.widget.ContactListItemView
+import com.hyphenate.chat.EMClient
+import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 /**
  *@author ： created by dujiangchuan
@@ -34,7 +37,7 @@ class ContactListAdapter(
         val userName = contactListItems[position].userName
         //点击跳转到聊天界面
         contactListItemView.setOnClickListener { context.startActivity<ChatActivity>("userName" to userName) }
-        //
+        //长按弹出删除好友对话框
         contactListItemView.setOnLongClickListener {
             var delete_confirm = String.format(context.getString(R.string.delete_frient_confirm), userName)
             AlertDialog.Builder(context).apply {
@@ -53,7 +56,16 @@ class ContactListAdapter(
         }
     }
 
-    fun deleteFriend(userName: String) {
+    private fun deleteFriend(userName: String) {
+        EMClient.getInstance().contactManager().aysncDeleteContact(userName, object : EMCallBackAdapter() {
+            override fun onSuccess() {
+                context.runOnUiThread { toast("删除成功！") }
+            }
+
+            override fun onError(p0: Int, p1: String?) {
+                context.runOnUiThread { toast("删除好友失败！") }
+            }
+        })
 
     }
 
