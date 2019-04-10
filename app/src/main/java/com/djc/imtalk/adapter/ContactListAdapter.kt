@@ -5,7 +5,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.djc.imtalk.data.ContactListItem
+import com.djc.imtalk.ui.activity.ChatActivity
 import com.djc.imtalk.widget.ContactListItemView
+import org.jetbrains.anko.startActivity
 
 /**
  *@author ： created by dujiangchuan
@@ -27,6 +29,8 @@ class ContactListAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val contactListItemView = holder.itemView as ContactListItemView
         contactListItemView.bindView(contactListItems[position])
+        val userName = contactListItems[position].userName
+        contactListItemView.setOnClickListener { context.startActivity<ChatActivity>("userName" to userName) }
     }
 
     class ContactListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
