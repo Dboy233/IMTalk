@@ -2,6 +2,8 @@ package com.djc.imtalk.presenter
 
 import com.djc.imtalk.contract.ContactContract
 import com.djc.imtalk.data.ContactListItem
+import com.djc.imtalk.data.db.Contact
+import com.djc.imtalk.data.db.IMDatabase
 import com.hyphenate.chat.EMClient
 import com.hyphenate.exceptions.HyphenateException
 import org.jetbrains.anko.doAsync
@@ -17,6 +19,8 @@ class ContactPresenter(val view: ContactContract.View) : ContactContract.Present
         doAsync {
             //初始化集合
             contactListItems.clear()
+            //清空数据库
+            IMDatabase.instance.deleteAllContacts()
             try {
                 val usersList = EMClient.getInstance().contactManager().allContactsFromServer
                 //首字符排序
@@ -28,7 +32,9 @@ class ContactPresenter(val view: ContactContract.View) : ContactContract.Present
                     //添加数据
                     val contactListItem = ContactListItem(s, s[0].toUpperCase(), showFirstLetter)
                     contactListItems.add(contactListItem)
-
+                    //保存联系人列表到数据库
+                    val contact = Contact(mutableMapOf("name" to s))
+                    IMDatabase.instance.saveContact(contact)
                 }
                 //通知view层更新界面
                 uiThread {

@@ -11,5 +11,5 @@ object ContactTable {
     val NAME = "contact"
     //字段
     val ID = "_id"
-    val CONTACT = "_name"
+    val CONTACT = "name"
 }

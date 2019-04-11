@@ -1,5 +1,7 @@
 package com.djc.imtalk.data.db
 
+import android.util.Log
+import com.djc.imtalk.app.IMApplication
 import com.djc.imtalk.extentions.toVarargArray
 import org.jetbrains.anko.db.MapRowParser
 import org.jetbrains.anko.db.insert
@@ -12,7 +14,7 @@ import org.jetbrains.anko.db.select
  */
 class IMDatabase {
     companion object {
-        val databaseHelper = DatabaseHelper()
+        val databaseHelper = DatabaseHelper(IMApplication.instance)
         val instance = IMDatabase()
     }
 
@@ -36,13 +38,11 @@ class IMDatabase {
 
     //删除所有联系人
     fun deleteAllContacts() {
+        Log.d("TAG","清空数据库")
         databaseHelper.use {
             delete(ContactTable.NAME, null, null)
         }
     }
-
-
-
 
 
 }
