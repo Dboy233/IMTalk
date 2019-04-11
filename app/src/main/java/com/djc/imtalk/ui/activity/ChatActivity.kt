@@ -5,9 +5,12 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import com.djc.imtalk.R
+import com.djc.imtalk.adapter.EMMessageListenerAdapter
 import com.djc.imtalk.adapter.MessageListAdapter
 import com.djc.imtalk.contract.ChatContract
 import com.djc.imtalk.presenter.ChatPresenter
+import com.hyphenate.chat.EMClient
+import com.hyphenate.chat.EMMessage
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.header.*
 import org.jetbrains.anko.toast
@@ -24,7 +27,8 @@ class ChatActivity : BaseActivity(), ChatContract.View {
         initHead()
         initEditText()
         initRecyclerView()
-
+        //设置消息接收监听器
+        EMClient.getInstance().chatManager().addMessageListener(messageListener)
     }
 
     private fun initRecyclerView() {
@@ -96,4 +100,18 @@ class ChatActivity : BaseActivity(), ChatContract.View {
     }
 
     override fun getLayoutResId(): Int = R.layout.activity_chat
+
+    private val messageListener = object : EMMessageListenerAdapter() {
+        override fun onMessageReceived(p0: MutableList<EMMessage>?) {
+            presenter.addMessage(username, p0)
+            runOnUiThread { recyclerView_chat.adapter?.notifyDataSetChanged() }
+
+        }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EMClient.getInstance().chatManager().removeMessageListener(messageListener)
+    }
 }

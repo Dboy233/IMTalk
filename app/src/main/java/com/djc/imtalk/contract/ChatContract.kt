@@ -1,5 +1,7 @@
 package com.djc.imtalk.contract
 
+import com.hyphenate.chat.EMMessage
+
 /**
  *@author ： created by dujiangchuan
  * 时间    ：2019/4/11 18
@@ -8,6 +10,7 @@ package com.djc.imtalk.contract
 interface ChatContract {
     interface Presenter : BasePresenter {
         fun sendMessage(contact: String, message: String)
+        fun addMessage(username: String, p0: MutableList<EMMessage>?)
     }
 
     interface View {
