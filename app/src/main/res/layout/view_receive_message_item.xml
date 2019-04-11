@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+    <TextView
+            android:id="@+id/tv_talk_time"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下午3：10"
+            />
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+        <TextView
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/img_user_head"
+                android:gravity="center"
+                android:id="@+id/tv_sendMsg"
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Hello"
+                android:background="@drawable/ic_talk_left"
+                />
+
+        <ImageView
+                android:id="@+id/img_user_head"
+                android:layout_margin="10"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/people_head"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                />
+    </RelativeLayout>
+
+
+</LinearLayout>
