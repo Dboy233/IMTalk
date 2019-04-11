@@ -26,8 +26,7 @@ class ContactFragment : BaseFragment(), ContactContract.View {
     //初始化
     override fun init() {
         super.init()
-        header_title.text = getString(R.string.tab_contact_string)
-        //初始化添加按钮
+        //初始化头部显示和添加按钮
         initAdd()
         //下拉刷新
         initSwipeRefreshLayout()
@@ -44,19 +43,22 @@ class ContactFragment : BaseFragment(), ContactContract.View {
 
     //好友信息监听器的设置
     private fun initFriendListener() {
-        EMClient.getInstance().contactManager().setContactListener(object : EMContactListenerAdapter() {
-            //好友删除
-            override fun onContactDeleted(p0: String?) {
-                //重新获取联系人列表
-                presenter.loadContacts()
-            }
+        EMClient.getInstance().contactManager().setContactListener(contactListener)
+    }
 
-            //有好友添加
-            override fun onContactAdded(p0: String?) {
-                //重新获取联系人列表
-                presenter.loadContacts()
-            }
-        })
+    //好友信息监听器
+    private val contactListener = object : EMContactListenerAdapter() {
+        //好友删除
+        override fun onContactDeleted(p0: String?) {
+            //重新获取联系人列表
+            presenter.loadContacts()
+        }
+
+        //有好友添加
+        override fun onContactAdded(p0: String?) {
+            //重新获取联系人列表
+            presenter.loadContacts()
+        }
     }
 
     //侧滑选择器
@@ -94,8 +96,9 @@ class ContactFragment : BaseFragment(), ContactContract.View {
         }
     }
 
-    //添加功能
+    //头部功能
     private fun initAdd() {
+        header_title.text = getString(R.string.tab_contact_string)
         add.visibility = View.VISIBLE
         add.setOnClickListener { context?.startActivity<AddFriendActivity>() }
     }
@@ -118,4 +121,9 @@ class ContactFragment : BaseFragment(), ContactContract.View {
         context!!.toast(getString(R.string.load_fialed))
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        //移除好友信息监听器
+        EMClient.getInstance().contactManager().removeContactListener(contactListener)
+    }
 }
