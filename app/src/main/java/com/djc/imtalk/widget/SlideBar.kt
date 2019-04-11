@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.djc.imtalk.R
@@ -58,11 +59,36 @@ class SlideBar(context: Context?, attrs: AttributeSet? = null) : View(context, a
     override fun onTouchEvent(event: MotionEvent): Boolean {
 
         when (event.action) {
-            MotionEvent.ACTION_DOWN -> setBackgroundResource(R.drawable.bg_slide_bar)
+            MotionEvent.ACTION_DOWN -> {
+                setBackgroundResource(R.drawable.bg_slide_bar)
+                //获取字母
+                val index = getTouchIndex(event)
+                val firstLetter = SECTIONS[index]
+            }
             MotionEvent.ACTION_UP -> setBackgroundColor(Color.TRANSPARENT)
+            MotionEvent.ACTION_MOVE -> {
+                val index = getTouchIndex(event)
+                val firstLetter = SECTIONS[index]
+                Log.d("DJC", firstLetter)
+            }
+
         }
 
         return true
     }
+
+    //获取点击位置的下标
+    private fun getTouchIndex(event: MotionEvent): Int {
+        var index = (event.y / sectionHeight).toInt()
+        //越界检查
+        if (index < 0) {
+            index = 0
+        } else if (index >= SECTIONS.size) {
+            index = SECTIONS.size - 1
+        }
+
+        return index
+    }
+
 
 }

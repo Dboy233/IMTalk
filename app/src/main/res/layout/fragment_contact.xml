@@ -35,5 +35,18 @@
                 android:layout_gravity="right"
                 />
 
+
+        <TextView
+                android:id="@+id/tv_section"
+                android:padding="8dp"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:background="@drawable/sase_show_head_toast_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
     </FrameLayout>
 </LinearLayout>
