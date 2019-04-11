@@ -6,16 +6,47 @@
         android:orientation="vertical"
         >
 
-    <LinearLayout
-            android:layout_weight="1"
+    <include layout="@layout/header"/>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_chat"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
-            ></LinearLayout>
+            android:layout_weight="1"
+            />
 
-    <EditText
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/blue_light"
+            />
 
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:orientation="horizontal"
+            >
+
+        <EditText
+                android:id="@+id/ed_sent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:imeOptions="actionSend"
+                />
+
+        <Button
+                android:id="@+id/btn_sent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/send"
+                android:layout_margin="5dp"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:enabled="false"
+                android:background="@drawable/btn_sent_bg"
+                />
+    </LinearLayout>
+
 </LinearLayout>
