@@ -7,6 +7,7 @@ import com.djc.imtalk.adapter.ContactListAdapter
 import com.djc.imtalk.adapter.EMContactListenerAdapter
 import com.djc.imtalk.contract.ContactContract
 import com.djc.imtalk.presenter.ContactPresenter
+import com.djc.imtalk.widget.SlideBar
 import com.hyphenate.chat.EMClient
 import kotlinx.android.synthetic.main.fragment_contact.*
 import kotlinx.android.synthetic.main.header.*
@@ -47,6 +48,17 @@ class ContactFragment : BaseFragment(), ContactContract.View {
             }
         })
         presenter.loadContacts()
+        //设置slider监听器
+        slidebar.onSectionChangeListener = object : SlideBar.OnSectionChangeListener {
+            override fun onSectionChange(firstLetter: String) {
+                tv_section.visibility = View.VISIBLE
+                tv_section.text = firstLetter
+            }
+
+            override fun onSlideFinish() {
+                tv_section.visibility = View.GONE
+            }
+        }
     }
 
     override fun onLoadContactSuccess() {

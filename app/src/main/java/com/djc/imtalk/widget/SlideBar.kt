@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.djc.imtalk.R
@@ -17,9 +16,10 @@ import org.jetbrains.anko.sp
  * 邮箱    ：894230813@qq.com
  */
 class SlideBar(context: Context?, attrs: AttributeSet? = null) : View(context, attrs) {
-    var sectionHeight = 0F
-    var paint = Paint()
-    var textBaseLine = 0f
+    private var sectionHeight = 0F
+    private var paint = Paint()
+    private var textBaseLine = 0f
+    var onSectionChangeListener: OnSectionChangeListener? = null
 
     companion object {
         private val SECTIONS = arrayOf(
@@ -64,12 +64,16 @@ class SlideBar(context: Context?, attrs: AttributeSet? = null) : View(context, a
                 //获取字母
                 val index = getTouchIndex(event)
                 val firstLetter = SECTIONS[index]
+                onSectionChangeListener?.onSectionChange(firstLetter)
             }
-            MotionEvent.ACTION_UP -> setBackgroundColor(Color.TRANSPARENT)
+            MotionEvent.ACTION_UP -> {
+                setBackgroundColor(Color.TRANSPARENT)
+                onSectionChangeListener?.onSlideFinish()
+            }
             MotionEvent.ACTION_MOVE -> {
                 val index = getTouchIndex(event)
                 val firstLetter = SECTIONS[index]
-                Log.d("DJC", firstLetter)
+                onSectionChangeListener?.onSectionChange(firstLetter)
             }
 
         }
@@ -90,5 +94,9 @@ class SlideBar(context: Context?, attrs: AttributeSet? = null) : View(context, a
         return index
     }
 
-
+    //回调接口
+    interface OnSectionChangeListener {
+        fun onSectionChange(firstLetter: String)
+        fun onSlideFinish()
+    }
 }
