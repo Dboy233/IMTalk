@@ -18,6 +18,7 @@ class AddFriendPresenter(val view: AddFriendContract.View) : AddFriendContract.P
 
 
     val addFriendItems = mutableListOf<AddFriendItem>()
+
     override fun search(key: String) {
         addFriendItems.clear()
         //从Bmob云查询好友
