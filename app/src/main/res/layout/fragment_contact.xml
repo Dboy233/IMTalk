@@ -33,7 +33,6 @@
                 android:layout_width="20dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
-                android:background="@color/white_gray"
                 />
 
     </FrameLayout>

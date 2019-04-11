@@ -2,8 +2,10 @@ package com.djc.imtalk.widget
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import com.djc.imtalk.R
 import org.jetbrains.anko.sp
@@ -45,12 +47,22 @@ class SlideBar(context: Context?, attrs: AttributeSet? = null) : View(context, a
 
     override fun onDraw(canvas: Canvas) {
         val x = width * 1.0f / 2
-        var baseLine=textBaseLine
+        var baseLine = textBaseLine
         SECTIONS.forEach {
             canvas.drawText(it, x, baseLine, paint)
             //更新y值
             baseLine += sectionHeight
         }
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> setBackgroundResource(R.drawable.bg_slide_bar)
+            MotionEvent.ACTION_UP -> setBackgroundColor(Color.TRANSPARENT)
+        }
+
+        return true
     }
 
 }
