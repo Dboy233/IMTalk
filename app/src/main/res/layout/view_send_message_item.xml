@@ -28,6 +28,16 @@
                 android:id="@+id/progressBar"
                 />
 
+        <ImageView
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tv_sendMsg"
+                android:id="@+id/img_send_failed"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/ic_send_failed"
+                />
+
         <TextView
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/img_user_head"
