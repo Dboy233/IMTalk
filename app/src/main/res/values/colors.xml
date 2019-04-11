@@ -8,8 +8,9 @@
     <color name="blue">#0000ff</color>
     <color name="blue_light">#6D6DF8</color>
     <color name="read_light">#FF5656</color>
-    <color name="read">#FF0000</color>
-    <color name="white_gray">#D6D6D6</color>
+    <color name="red">#FF0000</color>
+    <color name="white_gray">#C3C3C3</color>
     <color name="transparent_half">#75E5E5E5</color>
+    <color name="black">#000</color>
 
 </resources>

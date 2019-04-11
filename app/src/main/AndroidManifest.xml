@@ -59,11 +59,13 @@
         <meta-data
                 android:name="design_height_in_dp"
                 android:value="800"
-                /> <!-- 设置环信应用的AppKey -->
+                />
+        <!-- 设置环信应用的AppKey -->
         <meta-data
                 android:name="EASEMOB_APPKEY"
                 android:value="1115190409107806#imtalk"
-                /> <!-- 声明SDK所需的service SDK核心功能 -->
+                />
+        <!-- 声明SDK所需的service SDK核心功能 -->
         <service
                 android:name="com.hyphenate.chat.EMChatService"
                 android:exported="true"
@@ -72,7 +74,8 @@
                 android:name="com.hyphenate.chat.EMJobService"
                 android:exported="true"
                 android:permission="android.permission.BIND_JOB_SERVICE"
-                /> <!-- 声明SDK所需的receiver -->
+                />
+        <!-- 声明SDK所需的receiver -->
         <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED"/>

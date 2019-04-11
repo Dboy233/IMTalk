@@ -1,6 +1,7 @@
 package com.djc.imtalk.ui.activity
 
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.djc.imtalk.R
 import com.djc.imtalk.adapter.AddFriendListAdapter
 import com.djc.imtalk.contract.AddFriendContract
@@ -22,11 +23,12 @@ class AddFriendActivity : BaseActivity(), AddFriendContract.View {
     override fun init() {
         super.init()
         header_title.text = getString(R.string.add_friend)
-
+        back.visibility = View.VISIBLE
+        back.setOnClickListener { finish() }
         recyclerView_add.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = AddFriendListAdapter(context,presenter.addFriendItems)
+            adapter = AddFriendListAdapter(context, presenter.addFriendItems)
         }
 
 
