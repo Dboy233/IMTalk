@@ -58,7 +58,6 @@ class SendMessageItemView(context: Context?, attrs: AttributeSet? = null) : Rela
     private fun upDateTime(emMessage: EMMessage) {
         tv_talk_time.text = DateUtils.getTimestampString(Date(emMessage.msgTime))
 
-
     }
 
 
