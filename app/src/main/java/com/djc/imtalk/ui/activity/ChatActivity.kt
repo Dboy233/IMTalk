@@ -29,6 +29,7 @@ class ChatActivity : BaseActivity(), ChatContract.View {
         initRecyclerView()
         //设置消息接收监听器
         EMClient.getInstance().chatManager().addMessageListener(messageListener)
+        presenter.loadMessages(username)
     }
 
     private fun initRecyclerView() {
@@ -121,7 +122,12 @@ class ChatActivity : BaseActivity(), ChatContract.View {
 
         }
     }
+    //加载完所有聊天记录
+    override fun onMessageLoaded() {
+        recyclerView_chat.adapter?.notifyDataSetChanged()
+        scrollToBottom()
 
+    }
 
     override fun onDestroy() {
         super.onDestroy()

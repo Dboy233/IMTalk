@@ -4,6 +4,7 @@ import com.djc.imtalk.adapter.EMCallBackAdapter
 import com.djc.imtalk.contract.ChatContract
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMMessage
+import org.jetbrains.anko.doAsync
 
 /**
  *@author ： created by dujiangchuan
@@ -11,6 +12,7 @@ import com.hyphenate.chat.EMMessage
  * 邮箱    ：894230813@qq.com
  */
 class ChatPresenter(val view: ChatContract.View) : ChatContract.Presenter {
+
 
     val messages = mutableListOf<EMMessage>()
 
@@ -49,5 +51,13 @@ class ChatPresenter(val view: ChatContract.View) : ChatContract.Presenter {
 
     }
 
+    //加载所有的聊天记录条
+    override fun loadMessages(username: String) {
+        doAsync {
+        val conversation = EMClient.getInstance().chatManager().getConversation(username)
+            messages.addAll(conversation.allMessages)
+            uiThread { view.onMessageLoaded() }
+        }
 
+    }
 }
