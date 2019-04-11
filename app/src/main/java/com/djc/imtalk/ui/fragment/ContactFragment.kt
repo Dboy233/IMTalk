@@ -50,6 +50,12 @@ class ContactFragment : BaseFragment(), ContactContract.View {
                 //重新获取联系人列表
                 presenter.loadContacts()
             }
+
+            //有好友添加
+            override fun onContactAdded(p0: String?) {
+                //重新获取联系人列表
+                presenter.loadContacts()
+            }
         })
     }
 
