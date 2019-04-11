@@ -1,6 +1,7 @@
 package com.djc.imtalk.ui.activity
 
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -37,6 +38,21 @@ class ChatActivity : BaseActivity(), ChatContract.View {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = MessageListAdapter(context, presenter.messages)
+            //监听recyclerView的滑动
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    //当recycleView是一个空闲的状态，检查是否滑倒顶部，要加载更多数据库
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        //如果第一个可见条目的位置是0，为滑倒了顶部
+                        val linearLayoutManager = layoutManager as LinearLayoutManager
+                        if (linearLayoutManager.findFirstVisibleItemPosition() == 0) {
+                            //加载数据
+                            presenter.loadMoreMessages(username)
+
+                        }
+                    }
+                }
+            })
         }
 
     }
@@ -122,11 +138,18 @@ class ChatActivity : BaseActivity(), ChatContract.View {
 
         }
     }
-    //加载完所有聊天记录
+
+    //加载完聊天记录
     override fun onMessageLoaded() {
         recyclerView_chat.adapter?.notifyDataSetChanged()
         scrollToBottom()
 
+    }
+
+    //加载10条聊天记录
+    override fun onMoreMessageLoaded(size: Int) {
+        recyclerView_chat.adapter?.notifyDataSetChanged()
+        recyclerView_chat.smoothScrollToPosition(size)
     }
 
     override fun onDestroy() {
