@@ -76,12 +76,22 @@ class ChatActivity : BaseActivity(), ChatContract.View {
         recyclerView_chat.adapter?.notifyDataSetChanged()
     }
 
+    //消息发送成功
     override fun onSendMessageSuccess() {
         recyclerView_chat.adapter?.notifyDataSetChanged()
         toast("发送成功")
         ed_sent.text.clear()
+        //接收到消息后列表移动到最后
+        scrollToBottom()
     }
 
+    private fun scrollToBottom() {
+//        recyclerView_chat.scrollToPosition(presenter.messages.size - 1)
+        recyclerView_chat.smoothScrollToPosition(presenter.messages.size - 1)// 平滑移动
+
+    }
+
+    //消息发送失败
     override fun onSendMessageFailed() {
         toast("发送失败")
         recyclerView_chat.adapter?.notifyDataSetChanged()
@@ -104,7 +114,10 @@ class ChatActivity : BaseActivity(), ChatContract.View {
     private val messageListener = object : EMMessageListenerAdapter() {
         override fun onMessageReceived(p0: MutableList<EMMessage>?) {
             presenter.addMessage(username, p0)
-            runOnUiThread { recyclerView_chat.adapter?.notifyDataSetChanged() }
+            runOnUiThread {
+                recyclerView_chat.adapter?.notifyDataSetChanged()
+                scrollToBottom()//接收到消息后移动到最新的消息位置
+            }
 
         }
     }
