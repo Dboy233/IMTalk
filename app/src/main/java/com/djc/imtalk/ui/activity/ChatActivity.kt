@@ -1,9 +1,11 @@
 package com.djc.imtalk.ui.activity
 
+import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import com.djc.imtalk.R
+import com.djc.imtalk.adapter.MessageListAdapter
 import com.djc.imtalk.contract.ChatContract
 import com.djc.imtalk.presenter.ChatPresenter
 import kotlinx.android.synthetic.main.activity_chat.*
@@ -21,6 +23,17 @@ class ChatActivity : BaseActivity(), ChatContract.View {
     override fun init() {
         initHead()
         initEditText()
+        initRecyclerView()
+
+    }
+
+    private fun initRecyclerView() {
+        recyclerView_chat.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = MessageListAdapter(context, presenter.messages)
+        }
+
     }
 
     //
@@ -37,7 +50,7 @@ class ChatActivity : BaseActivity(), ChatContract.View {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
-        ed_sent.setOnClickListener {
+        btn_sent.setOnClickListener {
             send()
         }
         ed_sent.setOnEditorActionListener { _, _, _ ->

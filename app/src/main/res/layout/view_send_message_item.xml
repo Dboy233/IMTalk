@@ -42,7 +42,7 @@
 
         <ImageView
                 android:id="@+id/img_user_head"
-                android:layout_margin="10"
+                android:layout_margin="10dp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/people_head"
                 android:layout_width="50dp"
