@@ -7,10 +7,12 @@ import com.djc.imtalk.adapter.ContactListAdapter
 import com.djc.imtalk.adapter.EMContactListenerAdapter
 import com.djc.imtalk.contract.ContactContract
 import com.djc.imtalk.presenter.ContactPresenter
+import com.djc.imtalk.ui.activity.AddFriendActivity
 import com.djc.imtalk.widget.SlideBar
 import com.hyphenate.chat.EMClient
 import kotlinx.android.synthetic.main.fragment_contact.*
 import kotlinx.android.synthetic.main.header.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 /**
@@ -21,25 +23,27 @@ import org.jetbrains.anko.toast
 class ContactFragment : BaseFragment(), ContactContract.View {
     val presenter = ContactPresenter(this)
     override fun getLayoutResId(): Int = R.layout.fragment_contact
+    //初始化
     override fun init() {
         super.init()
         header_title.text = getString(R.string.tab_contact_string)
-        add.visibility = View.VISIBLE
-        //下拉刷新状态
-        swipeRefreshLayout.apply {
-            setColorSchemeResources(R.color.blue_light)
-            isRefreshing = true
-            setOnRefreshListener { presenter.loadContacts() }
-        }
+        //初始化添加按钮
+        initAdd()
+        //下拉刷新
+        initSwipeRefreshLayout()
         //初始化列表
-        recyclerView_contact.apply {
-
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context)
-            //绑定监听器
-            adapter = ContactListAdapter(context, presenter.contactListItems)
-        }
+        initRecyclerView()
         //好友信息监听器
+        initFriendListener()
+        //获取联系人列表
+        presenter.loadContacts()
+        //设置slider监听器
+        initSlider()
+
+    }
+
+    //好友信息监听器的设置
+    private fun initFriendListener() {
         EMClient.getInstance().contactManager().setContactListener(object : EMContactListenerAdapter() {
             //好友删除
             override fun onContactDeleted(p0: String?) {
@@ -47,12 +51,16 @@ class ContactFragment : BaseFragment(), ContactContract.View {
                 presenter.loadContacts()
             }
         })
-        presenter.loadContacts()
-        //设置slider监听器
+    }
+
+    //侧滑选择器
+    private fun initSlider() {
         slidebar.onSectionChangeListener = object : SlideBar.OnSectionChangeListener {
             override fun onSectionChange(firstLetter: String) {
                 tv_section.visibility = View.VISIBLE
                 tv_section.text = firstLetter
+                //移动列表
+                recyclerView_contact.smoothScrollToPosition(getPosition(firstLetter))
             }
 
             override fun onSlideFinish() {
@@ -60,6 +68,38 @@ class ContactFragment : BaseFragment(), ContactContract.View {
             }
         }
     }
+
+    //recyclerView的初始化
+    private fun initRecyclerView() {
+        recyclerView_contact.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            //绑定监听器
+            adapter = ContactListAdapter(context, presenter.contactListItems)
+        }
+    }
+
+    //下拉刷新功能
+    private fun initSwipeRefreshLayout() {
+        swipeRefreshLayout.apply {
+            setColorSchemeResources(R.color.blue_light)
+            isRefreshing = true
+            setOnRefreshListener { presenter.loadContacts() }
+        }
+    }
+
+    //添加功能
+    private fun initAdd() {
+        add.visibility = View.VISIBLE
+        add.setOnClickListener { context?.startActivity<AddFriendActivity>() }
+    }
+
+    //通过二分法得到集合加标
+    private fun getPosition(firstLetter: String): Int =
+        presenter.contactListItems.binarySearch { contactListItem ->
+            contactListItem.firstLetter.minus(firstLetter[0])
+        }
+
 
     override fun onLoadContactSuccess() {
         swipeRefreshLayout.isRefreshing = false
