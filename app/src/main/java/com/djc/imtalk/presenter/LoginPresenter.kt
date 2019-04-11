@@ -21,10 +21,16 @@ class LoginPresenter(val view: LoginContract.View) : LoginContract.Presenter {
                 //密码合法
                 //开始登录
                 view.onStartLogin()
+                loginBmob(userName,password)//要先查询数据库是否有这个用户
                 logEaseMob(userName, password)//登录到环信服务器
 
             } else view.onPasswordError()
         } else view.onUserNameError()
+
+    }
+
+    private fun loginBmob(userName: String, password: String) {
+
 
     }
 

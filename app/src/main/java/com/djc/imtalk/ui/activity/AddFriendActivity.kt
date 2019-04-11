@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.djc.imtalk.R
 import com.djc.imtalk.adapter.AddFriendListAdapter
 import com.djc.imtalk.contract.AddFriendContract
+import com.djc.imtalk.presenter.AddFriendPresenter
 import kotlinx.android.synthetic.main.acticity_add_friend.*
 import kotlinx.android.synthetic.main.header.*
 import org.jetbrains.anko.toast
@@ -14,6 +15,8 @@ import org.jetbrains.anko.toast
  * 邮箱    ：894230813@qq.com
  */
 class AddFriendActivity : BaseActivity(), AddFriendContract.View {
+
+    val presenter = AddFriendPresenter(this)
     override fun getLayoutResId(): Int = R.layout.acticity_add_friend
 
     override fun init() {
@@ -26,6 +29,19 @@ class AddFriendActivity : BaseActivity(), AddFriendContract.View {
             adapter = AddFriendListAdapter(context)
         }
 
+
+        img_search.setOnClickListener { search() }
+        ed_userName.setOnEditorActionListener { _, _, _ ->
+            search()
+            true
+        }
+    }
+
+    private fun search() {
+        hideSoftKeyboard()
+        showProgress(getString(R.string.searching_now))
+        val key = ed_userName.text.trim().toString()
+        presenter.search(key)
     }
 
     override fun onSearchSuccess() {
