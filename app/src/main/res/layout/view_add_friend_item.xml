@@ -14,7 +14,7 @@
             >
 
         <ImageView
-                android:id="@+id/user_head"
+                android:id="@+id/img_user_head"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/people_head"
@@ -26,7 +26,7 @@
                 android:layout_height="60dp"
                 android:layout_margin="5dp"
                 android:orientation="vertical"
-                android:layout_toRightOf="@+id/user_head"
+                android:layout_toRightOf="@+id/img_user_head"
                 >
 
             <TextView

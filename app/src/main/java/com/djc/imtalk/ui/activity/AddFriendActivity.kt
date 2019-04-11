@@ -26,7 +26,7 @@ class AddFriendActivity : BaseActivity(), AddFriendContract.View {
         recyclerView_add.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = AddFriendListAdapter(context)
+            adapter = AddFriendListAdapter(context,presenter.addFriendItems)
         }
 
 
