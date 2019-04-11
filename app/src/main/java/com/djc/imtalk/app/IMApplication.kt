@@ -13,8 +13,13 @@ import com.hyphenate.chat.EMOptions
  * 邮箱    ：894230813@qq.com
  */
 class IMApplication : Application() {
+    companion object {
+        lateinit var instance: IMApplication
+    }
+
     override fun onCreate() {
         super.onCreate()
+        instance = this
         //初始化
         val options = EMOptions()
         EMClient.getInstance().init(applicationContext, options)
