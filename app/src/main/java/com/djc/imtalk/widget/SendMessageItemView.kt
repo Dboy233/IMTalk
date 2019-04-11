@@ -18,8 +18,8 @@ import java.util.*
  */
 class SendMessageItemView(context: Context?, attrs: AttributeSet? = null) : RelativeLayout(context, attrs) {
 
-    fun bindView(emMessage: EMMessage) {
-        upDateTime(emMessage)
+    fun bindView(emMessage: EMMessage, showTime: Boolean) {
+        upDateTime(emMessage, showTime)
         upDataMessage(emMessage)
         updateProgress(emMessage)
 
@@ -55,8 +55,13 @@ class SendMessageItemView(context: Context?, attrs: AttributeSet? = null) : Rela
 
     }
 
-    private fun upDateTime(emMessage: EMMessage) {
-        tv_talk_time.text = DateUtils.getTimestampString(Date(emMessage.msgTime))
+    private fun upDateTime(emMessage: EMMessage, showTime: Boolean) {
+        if (showTime) {
+            tv_talk_time.visibility = View.VISIBLE
+            tv_talk_time.text = DateUtils.getTimestampString(Date(emMessage.msgTime))
+        } else {
+            tv_talk_time.visibility = View.GONE
+        }
 
     }
 

@@ -17,9 +17,9 @@ import java.util.*
  * 邮箱    ：894230813@qq.com
  */
 class ReceiveMessageItemView(context: Context?, attrs: AttributeSet? = null) : RelativeLayout(context, attrs) {
-    fun bindView(emMessage: EMMessage) {
+    fun bindView(emMessage: EMMessage, showTime: Boolean) {
         upDataMessage(emMessage)
-        upDateTime(emMessage)
+        upDateTime(emMessage, showTime)
     }
 
     init {
@@ -35,8 +35,13 @@ class ReceiveMessageItemView(context: Context?, attrs: AttributeSet? = null) : R
 
     }
 
-    private fun upDateTime(emMessage: EMMessage) {
-        tv_talk_time.text = DateUtils.getTimestampString(Date(emMessage.msgTime))
+    private fun upDateTime(emMessage: EMMessage, showTime: Boolean) {
+        if (showTime) {
+            tv_talk_time.visibility = View.VISIBLE
+            tv_talk_time.text = DateUtils.getTimestampString(Date(emMessage.msgTime))
+        } else {
+            tv_talk_time.visibility = View.GONE
+        }
 
     }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.djc.imtalk.widget.ReceiveMessageItemView
 import com.djc.imtalk.widget.SendMessageItemView
 import com.hyphenate.chat.EMMessage
+import com.hyphenate.util.DateUtils
 
 /**
  *@author ： created by dujiangchuan
@@ -42,15 +43,24 @@ class MessageListAdapter(val context: Context, val message: List<EMMessage>) :
 
     //绑定聊天界面的对话框视图信息 更新
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, pos: Int) {
-
+        val showTime = isShowTimes(pos)
         if (getItemViewType(pos) == ITEM_TYPE_SEND_MESSAGE) {
             //发送消息绑定
             val sendMessageItemView = holder.itemView as SendMessageItemView
-            sendMessageItemView.bindView(message[pos])
+            sendMessageItemView.bindView(message[pos],showTime)
         } else {
             val receiveMessageItemView = holder.itemView as ReceiveMessageItemView
-            receiveMessageItemView.bindView(message[pos])
+            receiveMessageItemView.bindView(message[pos],showTime)
         }
+    }
+
+    //如果第一条消息和前一条消息间隔时间比较长的话显示
+    private fun isShowTimes(position: Int): Boolean {
+        var showTimestamp = true
+        if (position > 0) {
+            showTimestamp = !DateUtils.isCloseEnough(message[position].msgTime, message[position - 1].msgTime)
+        }
+        return showTimestamp
     }
 
     //发送消息的view
