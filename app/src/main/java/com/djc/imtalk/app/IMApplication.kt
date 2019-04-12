@@ -1,6 +1,8 @@
 package com.djc.imtalk.app
 
+import android.app.ActivityManager
 import android.app.Application
+import android.content.Context
 import cn.bmob.v3.Bmob
 import com.djc.imtalk.BuildConfig
 import com.djc.imtalk.adapter.EMMessageListenerAdapter
@@ -37,8 +39,21 @@ class IMApplication : Application() {
     private val messageListAdapter = object : EMMessageListenerAdapter() {
         override fun onMessageReceived(p0: MutableList<EMMessage>?) {
             //如果在前台播放段的声音
+
             //如果在后台播放长声音
 
         }
     }
+
+  private fun isForeground(): Boolean {
+        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        for (runningAppProcess in activityManager.runningAppProcesses) {
+            if (runningAppProcess.processName == packageName) {
+                //找到了app进程
+                return runningAppProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+            }
+        }
+        return false
+    }
+
 }
