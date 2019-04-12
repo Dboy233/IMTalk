@@ -40,14 +40,12 @@ class MainActivity : BaseActivity() {
         EMClient.getInstance().chatManager().addMessageListener(messageListener)
         EMClient.getInstance().addConnectionListener(object : EMConnectionListener {
             override fun onConnected() {
-
-
             }
 
             override fun onDisconnected(p0: Int) {
                 if (p0 == EMError.USER_LOGIN_ANOTHER_DEVICE) {
-                    //发生多设备登录跳转到登录界面
-                    EMClient.getInstance().logout(true)
+                    //发生多设备登录   跳转到登录界面
+//                    EMClient.getInstance()
                     startActivity<LoginActivity>()
                     finish()
                 }
