@@ -34,12 +34,11 @@ class FragmentFactory private constructor() {
     }
 
     fun getFragment(tabId: Int): Fragment {
-
         return when (tabId) {
             R.id.tab_conversation -> conversation
             R.id.tab_contact -> contact
             R.id.tab_more -> more
-            else -> contact
+            else -> conversation
         }
     }
 

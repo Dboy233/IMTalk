@@ -6,8 +6,10 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.djc.imtalk.R
+import com.djc.imtalk.factory.FragmentFactory
+import org.jetbrains.anko.toast
 
 /**
  *@author ： created by dujiangchuan
@@ -28,6 +30,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutResId())
+
         init()
     }
 
@@ -55,7 +58,6 @@ abstract class BaseActivity : AppCompatActivity() {
         if (progressDialog.isShowing)
             progressDialog.dismiss()
     }
-
 
 
     /**

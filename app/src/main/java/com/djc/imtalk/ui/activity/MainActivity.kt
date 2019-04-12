@@ -9,6 +9,13 @@ class MainActivity : BaseActivity() {
 
     override fun init() {
         super.init()
+
+
+        //初始界面加载消息界面
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_frame, FragmentFactory.instance.getFragment(R.id.tab_conversation))
+            .commit()
+
         //选项卡切换
         bottom_bar.setOnNavigationItemSelectedListener { item ->
             supportFragmentManager.beginTransaction()
