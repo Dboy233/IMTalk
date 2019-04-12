@@ -3,8 +3,11 @@ package com.djc.imtalk.app
 import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
+import android.media.AudioManager
+import android.media.SoundPool
 import cn.bmob.v3.Bmob
 import com.djc.imtalk.BuildConfig
+import com.djc.imtalk.R
 import com.djc.imtalk.adapter.EMMessageListenerAdapter
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMMessage
@@ -19,6 +22,15 @@ import com.hyphenate.chat.EMOptions
 class IMApplication : Application() {
     companion object {
         lateinit var instance: IMApplication
+    }
+
+    val soundPool = SoundPool(2, AudioManager.STREAM_MUSIC, 0)
+    val duan by lazy {
+        soundPool.load(instance, R.raw.music_water, 0)
+
+    }
+    val chang by lazy {
+        soundPool.load(instance, R.raw.music_water, 0)
     }
 
     override fun onCreate() {
@@ -39,13 +51,18 @@ class IMApplication : Application() {
     private val messageListAdapter = object : EMMessageListenerAdapter() {
         override fun onMessageReceived(p0: MutableList<EMMessage>?) {
             //如果在前台播放段的声音
+            if (isForeground()) {
+                soundPool.play(duan, 1f, 1f, 0, 0, 1f)
+            } else {
+                //如果在后台播放长声音
+                soundPool.play(duan, 1f, 1f, 0, 0, 1f)
+            }
 
-            //如果在后台播放长声音
 
         }
     }
 
-  private fun isForeground(): Boolean {
+    private fun isForeground(): Boolean {
         val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         for (runningAppProcess in activityManager.runningAppProcesses) {
             if (runningAppProcess.processName == packageName) {

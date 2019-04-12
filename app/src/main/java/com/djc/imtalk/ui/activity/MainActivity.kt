@@ -38,7 +38,7 @@ class MainActivity : BaseActivity() {
         menuView = bottom_bar.getChildAt(0) as BottomNavigationMenuView
         itemView = menuView.getChildAt(0) as BottomNavigationItemView
         badge = LayoutInflater.from(this).inflate(R.layout.menu_badge, menuView, false)
-
+        itemView.addView(badge)//添加角标
     }
 
     //消息监听器
@@ -59,16 +59,13 @@ class MainActivity : BaseActivity() {
 
     //修改角标
     private fun updateBadgeTag() {
-
         //获取未读消息
         val unreadMessageCount = EMClient.getInstance().chatManager().unreadMessageCount
         if (unreadMessageCount > 0) {
-            itemView.addView(badge)//添加角标
             badge.find<TextView>(R.id.tv_msg_count).visibility = View.VISIBLE
             badge.find<TextView>(R.id.tv_msg_count).text = unreadMessageCount.toString()
         } else {
-            itemView.removeView(badge)//移除角标
-//            textView.visibility = View.GONE
+            badge.find<TextView>(R.id.tv_msg_count).visibility = View.GONE
 
         }
 
