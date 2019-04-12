@@ -65,7 +65,6 @@ class IMApplication : Application() {
             } else {
                 //如果在后台播放长声音
                 soundPool.play(duan, 1f, 1f, 0, 0, 1f)
-
                 showNotification(p0)
             }
 

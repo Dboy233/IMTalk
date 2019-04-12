@@ -8,10 +8,13 @@ import android.widget.TextView
 import com.djc.imtalk.R
 import com.djc.imtalk.adapter.EMMessageListenerAdapter
 import com.djc.imtalk.factory.FragmentFactory
+import com.hyphenate.EMConnectionListener
+import com.hyphenate.EMError
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMMessage
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 
 class MainActivity : BaseActivity() {
     override fun getLayoutResId(): Int = R.layout.activity_main
@@ -35,6 +38,23 @@ class MainActivity : BaseActivity() {
         }
         //监听消息更新底部标签角标   后期整合
         EMClient.getInstance().chatManager().addMessageListener(messageListener)
+        EMClient.getInstance().addConnectionListener(object : EMConnectionListener {
+            override fun onConnected() {
+
+
+            }
+
+            override fun onDisconnected(p0: Int) {
+                if (p0 == EMError.USER_LOGIN_ANOTHER_DEVICE) {
+                    //发生多设备登录跳转到登录界面
+                    EMClient.getInstance().logout(true)
+                    startActivity<LoginActivity>()
+                    finish()
+                }
+            }
+
+        })
+
         menuView = bottom_bar.getChildAt(0) as BottomNavigationMenuView
         itemView = menuView.getChildAt(0) as BottomNavigationItemView
         badge = LayoutInflater.from(this).inflate(R.layout.menu_badge, menuView, false)
