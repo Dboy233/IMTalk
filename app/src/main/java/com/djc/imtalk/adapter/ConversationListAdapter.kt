@@ -4,8 +4,10 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import com.djc.imtalk.ui.activity.ChatActivity
 import com.djc.imtalk.widget.ConversationListItemView
 import com.hyphenate.chat.EMConversation
+import org.jetbrains.anko.startActivity
 
 /**
  *@author ： created by dujiangchuan
@@ -27,6 +29,12 @@ class ConversationListAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, pos: Int) {
         val conversationListItemView = holder.itemView as ConversationListItemView
         conversationListItemView.bindView(conversations[pos])
+
+        conversationListItemView.setOnClickListener {
+            context.startActivity<ChatActivity>(
+                "userName" to conversations[pos].conversationId()
+            )
+        }
     }
 
     class ConversationListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
