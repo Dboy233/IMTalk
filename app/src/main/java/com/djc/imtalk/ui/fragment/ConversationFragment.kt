@@ -30,8 +30,9 @@ class ConversationFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = ConversationListAdapter(context, conversations)
         }
+
         EMClient.getInstance().chatManager().addMessageListener(messageListAdapter)
-        loadConversations()
+
     }
 
     private fun loadConversations() {

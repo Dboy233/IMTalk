@@ -3,7 +3,9 @@ package com.djc.imtalk.app
 import android.app.Application
 import cn.bmob.v3.Bmob
 import com.djc.imtalk.BuildConfig
+import com.djc.imtalk.adapter.EMMessageListenerAdapter
 import com.hyphenate.chat.EMClient
+import com.hyphenate.chat.EMMessage
 import com.hyphenate.chat.EMOptions
 
 
@@ -29,6 +31,14 @@ class IMApplication : Application() {
         //bmob
         Bmob.initialize(applicationContext, "43e1e032a87b4e7db517887ba505248b")
 
+        EMClient.getInstance().chatManager().addMessageListener(messageListAdapter)
+    }
 
+    private val messageListAdapter = object : EMMessageListenerAdapter() {
+        override fun onMessageReceived(p0: MutableList<EMMessage>?) {
+            //如果在前台播放段的声音
+            //如果在后台播放长声音
+
+        }
     }
 }
