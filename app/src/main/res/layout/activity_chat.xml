@@ -15,11 +15,6 @@
             android:layout_weight="1"
             />
 
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/blue_light"
-            />
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +33,7 @@
 
         <Button
                 android:id="@+id/btn_sent"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="@string/send"
                 android:layout_margin="5dp"
@@ -47,6 +42,8 @@
                 android:enabled="false"
                 android:background="@drawable/btn_sent_bg"
                 />
+
     </LinearLayout>
+
 
 </LinearLayout>

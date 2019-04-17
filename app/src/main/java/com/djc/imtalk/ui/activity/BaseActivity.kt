@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
 import com.djc.imtalk.R
 import com.djc.imtalk.factory.FragmentFactory
+import com.djc.openweather.Utils.Log
 import org.jetbrains.anko.toast
 
 /**
@@ -16,7 +17,7 @@ import org.jetbrains.anko.toast
  * 时间    ：2019/4/9 11
  * 邮箱    ：894230813@qq.com
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(),Log {
 
     private val progressDialog by lazy {
         ProgressDialog(this)
