@@ -4,8 +4,8 @@
     <string name="password">密码</string>
     <string name="login">登录</string>
     <string name="new_user">新用户</string>
-    <string name="user_name_error">用户名格式出错，必须是字母和数字</string>
-    <string name="password_error">密码出错</string>
+    <string name="user_name_error">3-10位的字母下划线和数字组成，不能以数字或下划线开头，只能已字母开头，允许全部是字母。</string>
+    <string name="password_error">不能全是数字，不能全是字母，不能全是符号，长度不能少于6位</string>
     <string name="logging">正在登陆。。。</string>
     <string name="loggin_failed">登录失败</string>
     <string name="register">注册</string>
