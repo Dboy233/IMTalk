@@ -17,8 +17,13 @@ import com.djc.imtalk.widget.SlideBar
 import com.hyphenate.chat.EMClient
 import kotlinx.android.synthetic.main.fragment_contact.*
 import kotlinx.android.synthetic.main.header.*
+import kotlinx.coroutines.experimental.delay
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.toast
+import java.util.concurrent.DelayQueue
+import java.util.concurrent.TimeUnit
 
 /**
  *@author ： created by dujiangchuan
@@ -97,6 +102,12 @@ class ContactFragment : BaseFragment(), ContactContract.View {
             }
         }
 
+        doAsync{
+            Thread.sleep(800)
+            runOnUiThread {
+                hideAnim()
+            }
+        }
     }
 
     //recyclerView的初始化
