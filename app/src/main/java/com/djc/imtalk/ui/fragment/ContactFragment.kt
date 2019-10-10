@@ -1,8 +1,12 @@
 package com.djc.imtalk.ui.fragment
 
+import android.animation.ObjectAnimator
+import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
+import android.view.animation.LinearInterpolator
 import com.djc.imtalk.R
 import com.djc.imtalk.adapter.ContactListAdapter
 import com.djc.imtalk.adapter.EMContactListenerAdapter
@@ -62,8 +66,20 @@ class ContactFragment : BaseFragment(), ContactContract.View {
         }
     }
 
+    var isShowSlideBar: Boolean = true
+
+
     //侧滑选择器
     private fun initSlider() {
+
+        show_slideBar_view.setOnClickListener {
+            if (isShowSlideBar) {
+                hideAnim()
+            } else {
+                showAnim()
+            }
+        }
+
         slidebar.onSectionChangeListener = object : SlideBar.OnSectionChangeListener {
             override fun onSectionChange(firstLetter: String) {
                 tv_section.visibility = View.VISIBLE
@@ -71,8 +87,8 @@ class ContactFragment : BaseFragment(), ContactContract.View {
                 //移动列表
                 try {
                     recyclerView_contact?.smoothScrollToPosition(getPosition(firstLetter))
-                } catch (e:IllegalArgumentException) {
-                    Log.e("RecyclerView",e.message)
+                } catch (e: IllegalArgumentException) {
+                    Log.e("RecyclerView", e.message)
                 }
             }
 
@@ -80,6 +96,7 @@ class ContactFragment : BaseFragment(), ContactContract.View {
                 tv_section.visibility = View.GONE
             }
         }
+
     }
 
     //recyclerView的初始化
@@ -128,14 +145,44 @@ class ContactFragment : BaseFragment(), ContactContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("DJC111","onDestroy")
         //移除好友信息监听器
         EMClient.getInstance().contactManager().removeContactListener(contactListener)
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("DJC111","onResume")
+    fun showAnim() {
+        val showAnim: ObjectAnimator = ObjectAnimator.ofFloat(
+            slidebar,
+            "translationX",
+            slidebar.layoutParams.width.toFloat(),
+            0.0f
+        )
+        showAnim.apply {
+            duration = 500
+            interpolator = LinearInterpolator()
+            start()
+        }
+        isShowSlideBar=true
+    }
 
+    fun hideAnim() {
+        val hide: ObjectAnimator = ObjectAnimator.ofFloat(
+            slidebar,
+            "translationX",
+            0.0f,
+            slidebar.layoutParams.width.toFloat()
+        )
+        hide.apply {
+            duration = 500
+            interpolator = LinearInterpolator()
+            start()
+        }
+        isShowSlideBar=false
+    }
+
+
+    fun getScreenWidth(): Int {
+        val wm = context
+            ?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        return wm.defaultDisplay.width
     }
 }
