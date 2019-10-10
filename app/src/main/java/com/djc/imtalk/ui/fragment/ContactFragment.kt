@@ -2,6 +2,7 @@ package com.djc.imtalk.ui.fragment
 
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
@@ -17,13 +18,9 @@ import com.djc.imtalk.widget.SlideBar
 import com.hyphenate.chat.EMClient
 import kotlinx.android.synthetic.main.fragment_contact.*
 import kotlinx.android.synthetic.main.header.*
-import kotlinx.coroutines.experimental.delay
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.toast
-import java.util.concurrent.DelayQueue
-import java.util.concurrent.TimeUnit
 
 /**
  *@author ： created by dujiangchuan
@@ -102,12 +99,9 @@ class ContactFragment : BaseFragment(), ContactContract.View {
             }
         }
 
-        doAsync{
-            Thread.sleep(800)
-            runOnUiThread {
-                hideAnim()
-            }
-        }
+        Handler().postDelayed({
+            hideAnim()
+        }, 800)
     }
 
     //recyclerView的初始化
@@ -172,7 +166,7 @@ class ContactFragment : BaseFragment(), ContactContract.View {
             interpolator = LinearInterpolator()
             start()
         }
-        isShowSlideBar=true
+        isShowSlideBar = true
     }
 
     fun hideAnim() {
@@ -187,7 +181,7 @@ class ContactFragment : BaseFragment(), ContactContract.View {
             interpolator = LinearInterpolator()
             start()
         }
-        isShowSlideBar=false
+        isShowSlideBar = false
     }
 
 
