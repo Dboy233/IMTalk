@@ -2,6 +2,7 @@ package com.djc.imtalk.ui.activity
 
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -26,15 +27,44 @@ class MainActivity : BaseActivity() {
 
         //初始界面加载消息界面
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_frame, FragmentFactory.instance.getFragment(R.id.tab_conversation))
+            .replace(
+                R.id.fragment_frame,
+                FragmentFactory.instance.getFragment(R.id.tab_conversation)
+            )
             .commit()
 
         //选项卡切换
         bottom_bar.setOnNavigationItemSelectedListener { item ->
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_frame, FragmentFactory.instance.getFragment(item.itemId))
-                .commit()
-            true
+            var fragment: Fragment? = null
+            fragment = supportFragmentManager.findFragmentByTag(item.itemId.toString())
+
+            if (fragment == null) {
+                fragment = FragmentFactory.instance.getFragment(item.itemId)
+            }
+            //获取当前正在显示的fragment
+            var visibleFragment: Fragment? = null
+            for (visible in supportFragmentManager.fragments) {
+                if (visible.isVisible) {
+                    visibleFragment = visible
+                }
+            }
+            //如果当前显示的fragment存在就隐藏
+            if (visibleFragment != null) {
+                supportFragmentManager.beginTransaction()
+                    .hide(visibleFragment).commit()
+            }
+
+            //如果将要展示的fragment没有添加过就添加上去 添加过了就展示
+            if (!fragment.isAdded) {
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.fragment_frame, fragment, item.itemId.toString())
+                    .commit()
+            } else {
+                supportFragmentManager.beginTransaction()
+                    .show(fragment).commit()
+            }
+
+            return@setOnNavigationItemSelectedListener true
         }
         //监听消息更新底部标签角标   后期整合
         EMClient.getInstance().chatManager().addMessageListener(messageListener)

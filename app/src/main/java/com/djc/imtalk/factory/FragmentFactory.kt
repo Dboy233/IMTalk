@@ -13,9 +13,10 @@ import com.djc.imtalk.ui.fragment.MoreFragment
  * 邮箱    ：894230813@qq.com
  */
 class FragmentFactory private constructor() {
-    //
-    private val conversation by lazy {
 
+
+    private val conversation by lazy {
+        Log.d("DJC111","conversation lazy")
         ConversationFragment()
     }
     //联系人
@@ -41,6 +42,8 @@ class FragmentFactory private constructor() {
             else -> conversation
         }
     }
+
+
 
 
 }

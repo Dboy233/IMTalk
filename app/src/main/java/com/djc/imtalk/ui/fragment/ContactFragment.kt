@@ -1,6 +1,7 @@
 package com.djc.imtalk.ui.fragment
 
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import com.djc.imtalk.R
 import com.djc.imtalk.adapter.ContactListAdapter
@@ -68,7 +69,7 @@ class ContactFragment : BaseFragment(), ContactContract.View {
                 tv_section.visibility = View.VISIBLE
                 tv_section.text = firstLetter
                 //移动列表
-                recyclerView_contact.smoothScrollToPosition(getPosition(firstLetter))
+                recyclerView_contact?.smoothScrollToPosition(getPosition(firstLetter))
             }
 
             override fun onSlideFinish() {
@@ -79,7 +80,7 @@ class ContactFragment : BaseFragment(), ContactContract.View {
 
     //recyclerView的初始化
     private fun initRecyclerView() {
-        recyclerView_contact.apply {
+        recyclerView_contact?.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             //绑定监听器
@@ -112,7 +113,7 @@ class ContactFragment : BaseFragment(), ContactContract.View {
 
     override fun onLoadContactSuccess() {
         swipeRefreshLayout?.isRefreshing = false
-        recyclerView_contact.adapter!!.notifyDataSetChanged()
+        recyclerView_contact?.adapter?.notifyDataSetChanged()
 
     }
 
@@ -123,7 +124,14 @@ class ContactFragment : BaseFragment(), ContactContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("DJC111","onDestroy")
         //移除好友信息监听器
         EMClient.getInstance().contactManager().removeContactListener(contactListener)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("DJC111","onResume")
+
     }
 }
