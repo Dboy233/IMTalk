@@ -111,13 +111,13 @@ class ContactFragment : BaseFragment(), ContactContract.View {
 
 
     override fun onLoadContactSuccess() {
-        swipeRefreshLayout.isRefreshing = false
+        swipeRefreshLayout?.isRefreshing = false
         recyclerView_contact.adapter!!.notifyDataSetChanged()
 
     }
 
     override fun onLoadContactFailed() {
-        swipeRefreshLayout.isRefreshing = false
+        swipeRefreshLayout?.isRefreshing = false
         context!!.toast(getString(R.string.load_fialed))
     }
 
