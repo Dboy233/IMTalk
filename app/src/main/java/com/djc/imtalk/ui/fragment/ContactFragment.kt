@@ -69,7 +69,11 @@ class ContactFragment : BaseFragment(), ContactContract.View {
                 tv_section.visibility = View.VISIBLE
                 tv_section.text = firstLetter
                 //移动列表
-                recyclerView_contact?.smoothScrollToPosition(getPosition(firstLetter))
+                try {
+                    recyclerView_contact?.smoothScrollToPosition(getPosition(firstLetter))
+                } catch (e:IllegalArgumentException) {
+                    Log.e("RecyclerView",e.message)
+                }
             }
 
             override fun onSlideFinish() {
