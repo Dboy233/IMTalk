@@ -33,6 +33,7 @@
                 android:background="@drawable/ic_talk_left"
                 android:gravity="center"
                 android:minWidth="200dp"
+                android:textColor="@color/primary_text"
                 android:text="Hello"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/img_user_head"

@@ -2,8 +2,8 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/blue_light"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
         >
 
     <ImageView
@@ -14,7 +14,7 @@
             android:layout_marginStart="20dp"
            android:visibility="gone"
              android:padding="6dp"
-            android:src="@mipmap/ic_back"
+            android:src="@mipmap/ic_back_withe"
             android:layout_centerVertical="true"
             />
 
@@ -29,7 +29,7 @@
 
     <ImageView
             android:id="@+id/add"
-            android:src="@mipmap/ic_add"
+            android:src="@mipmap/ic_add_withe"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_width="30dp"

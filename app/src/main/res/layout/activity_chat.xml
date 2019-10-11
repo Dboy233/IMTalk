@@ -23,6 +23,7 @@
             >
 
         <EditText
+                android:layout_gravity="center_vertical"
                 android:id="@+id/ed_sent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -32,9 +33,10 @@
                 />
 
         <Button
+                android:layout_gravity="center_vertical"
                 android:id="@+id/btn_sent"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:text="@string/send"
                 android:layout_margin="5dp"
                 android:textSize="16sp"

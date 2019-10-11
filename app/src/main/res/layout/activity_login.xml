@@ -1,56 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:orientation="vertical"
-              android:layout_height="match_parent">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
     <ImageView
-            android:layout_margin="30dp"
-            android:src="@drawable/people_head"
-            android:layout_gravity="center_horizontal"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="30dp"
             android:scaleType="centerCrop"
+            android:src="@drawable/people_head"
             />
 
     <EditText
-            android:inputType="text"
-            android:imeOptions="actionNext"
             android:id="@+id/ed_userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:hint="@string/user_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:textColorHint="@color/divider"
+            />
 
     <EditText
             android:id="@+id/ed_password"
-            android:layout_margin="20dp"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:hint="@string/password"
-            android:inputType="textPassword"
             android:imeOptions="actionGo"
-            android:layout_height="wrap_content"/>
+            android:inputType="textPassword"
+            android:textColorHint="@color/divider"
+            />
 
     <Button
             android:id="@+id/bt_login"
             android:layout_width="match_parent"
-            android:text="@string/login"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:gravity="center"
-            android:textSize="22sp"
             android:background="@drawable/btn_login"
+            android:gravity="center"
+            android:text="@string/login"
             android:textColor="@color/white"
-            android:layout_height="wrap_content"/>
+            android:textSize="22sp"
+            />
 
     <TextView
             android:id="@+id/tv_newUser"
-            android:text="@string/new_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/blue_light"
-            android:layout_marginTop="30dp"
             android:layout_gravity="right"
-            android:layout_marginRight="30dp"/>
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:text="@string/new_user"
+            android:textColor="@color/blue_light"
+            />
 
 
 </LinearLayout>

@@ -46,6 +46,7 @@
                 android:layout_margin="10dp"
                 android:layout_toLeftOf="@+id/img_user_head"
                 android:background="@drawable/ic_talk_right"
+                android:textColor="@color/primary_text"
                 android:gravity="center"
                 android:minWidth="200dp"
                 android:textSize="16sp"
