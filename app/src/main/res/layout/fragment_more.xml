@@ -26,14 +26,14 @@
                 app:layout_constraintTop_toTopOf="parent"
                 />
 
-        <com.djc.imtalk.widget.ItemView
-                android:id="@+id/item_change_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/img_user_head"
-                app:titleText="设置头像"
-                />
+<!--        <com.djc.imtalk.widget.ItemView-->
+<!--                android:id="@+id/item_change_header"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/img_user_head"-->
+<!--                app:titleText="设置头像"-->
+<!--                />-->
 
 
         <Button
@@ -46,7 +46,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="22sp"
-                app:layout_constraintTop_toBottomOf="@+id/item_change_header"
+                app:layout_constraintTop_toBottomOf="@+id/img_user_head"
 
                 />
 

@@ -32,10 +32,10 @@ class MoreFragment : BaseFragment() {
         //退登录功能
         bt_logout.setOnClickListener { logout() }
 
-        //设置头像
-        item_change_header.setOnItemViewClickListener(View.OnClickListener {
-            toast("开发中").show()
-        })
+//        //设置头像
+//        item_change_header.setOnItemViewClickListener(View.OnClickListener {
+//            toast("开发中").show()
+//        })
     }
 
     private fun logout() {
