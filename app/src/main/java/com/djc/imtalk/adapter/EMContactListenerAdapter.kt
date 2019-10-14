@@ -9,7 +9,7 @@ import com.hyphenate.EMContactListener
  */
 
 open class EMContactListenerAdapter :EMContactListener {
-    override fun onContactInvited(p0: String?, p1: String?) {
+    override fun onContactInvited(userName: String?, reason: String?) {
     }
 
     override fun onContactDeleted(p0: String?) {

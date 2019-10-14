@@ -4,6 +4,7 @@ import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import com.djc.imtalk.R
@@ -123,4 +124,5 @@ class MainActivity : BaseActivity() {
         super.onDestroy()
         EMClient.getInstance().chatManager().removeMessageListener(messageListener)
     }
+
 }
